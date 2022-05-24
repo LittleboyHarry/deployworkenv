@@ -8,3 +8,5 @@ extend-height=false
 background-opacity=0.5
 dash-max-icon-size=64
 END
+
+echo ./gnome/ext/dash/like-mac.sh >> ~/deployworkenv.log

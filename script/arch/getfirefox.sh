@@ -7,3 +7,5 @@ echo "- uBlock Origin"
 read r
 [[ "$r" =~ ^(y|Y|)$ ]] &&
     sudo pacman -S firefox-dark-reader firefox-decentraleyes firefox-ublock-origin --noconfirm
+
+echo ./arch/getfirefox.sh >> ~/deployworkenv.log

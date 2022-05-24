@@ -9,3 +9,5 @@ transparency-mode='FIXED'
 background-opacity=0.11
 END
 dconf write /org/gnome/mutter/center-new-windows true
+
+echo ./gnome/ext/dash/hide.sh >> ~/deployworkenv.log

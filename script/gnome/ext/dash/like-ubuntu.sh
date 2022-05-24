@@ -15,3 +15,5 @@ shift-click-action='launch'
 middle-click-action='launch'
 shift-middle-click-action='minimize'
 END
+
+echo ./gnome/ext/dash/like-ubuntu.sh >> ~/deployworkenv.log

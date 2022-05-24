@@ -9,3 +9,5 @@ icon-size=38
 reduce-padding=false
 right-click=false
 END
+
+echo ./gnome/ext/4taskbar.sh >> ~/deployworkenv.log

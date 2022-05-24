@@ -21,3 +21,5 @@ fi
 
 # apply
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+echo ./arch/bettergrub.sh >> ~/deployworkenv.log

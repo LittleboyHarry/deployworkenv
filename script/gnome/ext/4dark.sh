@@ -4,3 +4,5 @@ dconf load /org/gnome/shell/extensions/nightthemeswitcher/ <<END
 always-enable-ondemand=true
 nightthemeswitcher-ondemand-keybinding=['']
 END
+
+echo ./gnome/ext/4dark.sh >> ~/deployworkenv.log

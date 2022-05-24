@@ -44,3 +44,5 @@ read -p "强化同应用窗口切换 Alt + \` 键 (Y/n)?" r
 cycle-group=['<Alt>grave']
 cycle-group-backward=['<Shift><Alt>grave']
 END
+
+echo ./gnome/optimize-cn.sh >> ~/deployworkenv.log

@@ -20,3 +20,5 @@ show-showdesktop-hover=true
 window-preview-size=380
 click-action='TOGGLE-SHOWPREVIEW'
 END
+
+echo ./gnome/ext/use-taskbar.sh >> ~/deployworkenv.log

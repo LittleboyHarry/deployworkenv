@@ -8,3 +8,5 @@ enable-alttab-gesture=false
 allow-minimize-window=true
 touchpad-speed-scale=1.25
 END
+
+echo ./gnome/ext/4gesture.sh >> ~/deployworkenv.log

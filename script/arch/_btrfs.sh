@@ -22,3 +22,5 @@ mkdir /mnt/archinstall/home
 mount -o relatime,compress=zstd:1,space_cache=v2,subvol=@home "$targetDevice" /mnt/archinstall/home
 
 mount | grep /mnt/archinstall
+
+echo ./arch/_btrfs.sh >> ~/deployworkenv.log

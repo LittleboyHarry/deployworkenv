@@ -9,3 +9,5 @@ END
 dconf reset /org/gnome/shell/extensions/dash-to-dock/background-opacity
 dconf write /org/gnome/shell/extensions/ding/start-corner "'top-right'"
 dconf reset /org/gnome/desktop/wm/preferences/button-layout
+
+echo ./gnome/ext/dash/fixed2l.sh >> ~/deployworkenv.log

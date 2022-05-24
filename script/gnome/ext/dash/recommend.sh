@@ -9,3 +9,5 @@ scroll-action='cycle-windows'
 middle-click-action='quit'
 click-action='focus-minimize-or-previews'
 END
+
+echo ./gnome/ext/dash/recommend.sh >> ~/deployworkenv.log
