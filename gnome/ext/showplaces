@@ -1,6 +1,8 @@
 #!/bin/bash
+source ./gnome/ext/_common.bash
+
 UUID=places-menu@gnome-shell-extensions.gcampax.github.com
 gnome-extensions enable $UUID ||
-gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Extensions.InstallRemoteExtension $UUID
+gnome_install_extension $UUID
 
 echo  ./gnome/ext/showplaces >> ~/deployworkenv.log

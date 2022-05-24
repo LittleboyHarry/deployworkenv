@@ -1,0 +1,6 @@
+#!/bin/bash
+source ./gnome/ext/_common.bash
+
+gnome_install_extension 'BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm'
+
+echo ./gnome/ext/showsysbtn >> ~/deployworkenv.log
