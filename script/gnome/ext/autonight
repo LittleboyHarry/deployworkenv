@@ -6,4 +6,4 @@ nightthemeswitcher-ondemand-keybinding=['']
 END
 gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Extensions.InstallRemoteExtension 'nightthemeswitcher@romainvigier.fr'
 
-echo ./gnome/ext/autonight.sh >> ~/deployworkenv.log
+echo  ./gnome/ext/autonight >> ~/deployworkenv.log

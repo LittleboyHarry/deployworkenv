@@ -15,4 +15,4 @@ read -p "降低顶栏对屏幕空间的占用 (Y/n)?" r
 [[ "$r" =~ ^(y|Y|)$ ]] &&
 dconf write /org/gnome/shell/extensions/just-perfection/panel-size 36
 
-echo '?' ./cn/gnome-justopti.sh >> ~/deployworkenv.log
+echo  '?' ./cn/gnome-justopti >> ~/deployworkenv.log

@@ -3,4 +3,4 @@ cat << END >> "$(find ~/.mozilla/firefox -type d -name *.default-release)/user.j
 user_pref("ui.key.menuAccessKeyFocuses", false);
 END
 
-echo ./firefox-cfg.sh >> ~/deployworkenv.log
+echo  ./firefox-cfg >> ~/deployworkenv.log

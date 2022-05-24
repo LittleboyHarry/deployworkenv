@@ -7,4 +7,4 @@ END
 gnome-extensions list | grep -q 'ubuntu-appindicators@ubuntu.com' ||
 gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Extensions.InstallRemoteExtension 'appindicatorsupport@rgcjonas.gmail.com'
 
-echo ./gnome/ext/apptray.sh >> ~/deployworkenv.log
+echo  ./gnome/ext/apptray >> ~/deployworkenv.log

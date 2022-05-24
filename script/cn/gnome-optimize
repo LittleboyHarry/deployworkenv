@@ -45,4 +45,4 @@ cycle-group=['<Alt>grave']
 cycle-group-backward=['<Shift><Alt>grave']
 END
 
-echo '?' ./cn/gnome-optimize.sh >> ~/deployworkenv.log
+echo  '?' ./cn/gnome-optimize >> ~/deployworkenv.log
