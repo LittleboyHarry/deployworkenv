@@ -5,4 +5,4 @@ systemctl enable tlp.service --now
 sudo systemctl mask systemd-rfkill.{service,socket} --now
 sudo tlp start
 
-echo  ./pkginst-tlp >> ~/deployworkenv.log
+echo  ./pkginst/tlp >> ~/deployworkenv.log
