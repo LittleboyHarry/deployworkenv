@@ -1,0 +1,9 @@
+#!/bin/bash
+dconf load /org/gnome/shell/extensions/nightthemeswitcher/ <<END
+[time]
+always-enable-ondemand=true
+nightthemeswitcher-ondemand-keybinding=['']
+END
+gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Extensions.InstallRemoteExtension 'nightthemeswitcher@romainvigier.fr'
+
+echo ./gnome/ext/autonight.sh >> ~/deployworkenv.log

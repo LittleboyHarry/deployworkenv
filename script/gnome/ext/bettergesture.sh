@@ -8,5 +8,6 @@ enable-alttab-gesture=false
 allow-minimize-window=true
 touchpad-speed-scale=1.25
 END
+gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Extensions.InstallRemoteExtension 'babar@fthx'
 
-echo ./gnome/ext/4gesture.sh >> ~/deployworkenv.log
+echo ./gnome/ext/bettergesture.sh >> ~/deployworkenv.log

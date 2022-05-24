@@ -9,5 +9,6 @@ icon-size=38
 reduce-padding=false
 right-click=false
 END
+gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Extensions.InstallRemoteExtension 'babar@fthx'
 
-echo ./gnome/ext/4taskbar.sh >> ~/deployworkenv.log
+echo ./gnome/ext/babar.sh >> ~/deployworkenv.log

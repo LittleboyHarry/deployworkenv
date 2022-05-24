@@ -20,5 +20,6 @@ show-showdesktop-hover=true
 window-preview-size=380
 click-action='TOGGLE-SHOWPREVIEW'
 END
+gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Extensions.InstallRemoteExtension 'dash-to-panel@jderose9.github.com'
 
-echo ./gnome/ext/use-taskbar.sh >> ~/deployworkenv.log
+echo ./gnome/ext/taskbar.sh >> ~/deployworkenv.log
