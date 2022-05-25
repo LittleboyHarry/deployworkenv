@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /mnt/archinstall/boot
+tar -zcvf boot.tgz .
+sed -i '/btrfs/ s/,subvolid=[0-9]*,/,/' /mnt/archinstall/etc/fstab

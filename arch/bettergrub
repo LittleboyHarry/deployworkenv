@@ -9,7 +9,7 @@ sudo sed -i "/GRUB_TIMEOUT/ s/=.*/=2/" /etc/default/grub
 
 # use os-prober
 sudo pacman -S os-prober
-sudo sed -i '/#GRUB_DISABLE_OS_PROBER/ s/^#//' /etc/default/grub
+sudo sed -i '/^#GRUB_DISABLE_OS_PROBER/ s/^#//' /etc/default/grub
 
 # recommend
 read -p 'use "breeze-grub" theme (y/N)?' r

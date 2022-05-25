@@ -1,7 +1,7 @@
 #!/bin/bash
 dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ <<END
 [custom0]
-binding='<Super>x'
+binding='F1'
 command='gnome-terminal'
 name='Open Terminal'
 

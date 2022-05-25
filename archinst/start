@@ -1,0 +1,2 @@
+#!/bin/bash
+archinstall --script swiss --mode only_os

@@ -1,0 +1,3 @@
+#!/bin/bash
+read -p "change --efi-directory=/boot to --efi-directory=/boot/efi in next line by nano. (Y)"
+nano +837 /usr/lib/python*/site-packages/archinstall/lib/installer.py

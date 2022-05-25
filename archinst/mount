@@ -1,0 +1,16 @@
+#!/bin/bash
+mkdir -p /mnt/archinstall
+cd /mnt/archinstall
+
+lsblk
+
+mount | grep -q /mnt/archinstall || read -p 'which mount to /root (/dev/?):' n
+[ -z "$n" ] || mount "/dev/$n" . && cd .
+
+mkdir boot
+read -p 'which mount to /boot (/dev/?):' n
+mount "/dev/$n" boot
+
+mkdir boot/efi
+read -p 'which mount to /boot/efi (/dev/?):' n
+mmount "/dev/$n" boot/efi

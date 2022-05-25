@@ -7,3 +7,5 @@ cd timeshift
 makepkg -si
 
 echo "$0" >> ~/deployworkenv.log
+
+sudo timeshift
