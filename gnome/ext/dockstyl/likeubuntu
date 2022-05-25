@@ -16,4 +16,4 @@ middle-click-action='launch'
 shift-middle-click-action='minimize'
 END
 
-echo  ./gnome/ext/dockstyl/likeubuntu >> ~/deployworkenv.log
+echo "$0" >> ~/deployworkenv.log

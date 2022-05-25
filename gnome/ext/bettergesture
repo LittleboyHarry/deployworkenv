@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./gnome/ext/_common.bash
+source "$(dirname $0)/_common.bash"
 
 dconf load /org/gnome/shell/extensions/gestureImprovements/ <<END
 [/]
@@ -12,4 +12,4 @@ touchpad-speed-scale=1.25
 END
 gnome_install_extension 'babar@fthx'
 
-echo  ./gnome/ext/bettergesture >> ~/deployworkenv.log
+echo "$0" >> ~/deployworkenv.log

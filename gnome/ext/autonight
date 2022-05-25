@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./gnome/ext/_common.bash
+source "$(dirname $0)/_common.bash"
 
 dconf load /org/gnome/shell/extensions/nightthemeswitcher/ <<END
 [time]
@@ -8,4 +8,4 @@ nightthemeswitcher-ondemand-keybinding=['']
 END
 gnome_install_extension 'nightthemeswitcher@romainvigier.fr'
 
-echo  ./gnome/ext/autonight >> ~/deployworkenv.log
+echo "$0" >> ~/deployworkenv.log

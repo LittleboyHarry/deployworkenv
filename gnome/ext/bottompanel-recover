@@ -7,4 +7,4 @@ dconf reset /org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bo
 dconf reset /org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0/action
 gnome-extensions list | grep -q babar@fthx && gnome-extensions enable babar@fthx
 
-echo ./gnome/ext/bottompanel-recover >> ~/deployworkenv.log
+echo "$0" >> ~/deployworkenv.log

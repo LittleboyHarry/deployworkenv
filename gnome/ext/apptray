@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./gnome/ext/_common.bash
+source "$(dirname $0)/_common.bash"
 
 cat << END | dconf load /org/gnome/shell/extensions/appindicator/
 [/]
@@ -9,4 +9,4 @@ END
 gnome-extensions list | grep -q 'ubuntu-appindicators@ubuntu.com' ||
 gnome_install_extension 'appindicatorsupport@rgcjonas.gmail.com'
 
-echo  ./gnome/ext/apptray >> ~/deployworkenv.log
+echo "$0" >> ~/deployworkenv.log

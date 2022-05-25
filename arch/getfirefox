@@ -8,4 +8,4 @@ read r
 [[ "$r" =~ ^(y|Y|)$ ]] &&
     sudo pacman -S firefox-dark-reader firefox-decentraleyes firefox-ublock-origin --noconfirm
 
-echo  '?' ./arch/getfirefox >> ~/deployworkenv.log
+echo ? "$0" >> ~/deployworkenv.log

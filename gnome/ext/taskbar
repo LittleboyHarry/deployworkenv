@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./gnome/ext/_common.bash
+source "$(dirname $0)/_common.bash"
 
 dconf load /org/gnome/shell/extensions/dash-to-panel/ <<END
 [/]
@@ -24,4 +24,4 @@ click-action='TOGGLE-SHOWPREVIEW'
 END
 gnome_install_extension 'dash-to-panel@jderose9.github.com'
 
-echo  ./gnome/ext/taskbar >> ~/deployworkenv.log
+echo "$0" >> ~/deployworkenv.log

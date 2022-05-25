@@ -6,4 +6,4 @@ git clone https://aur.archlinux.org/timeshift.git
 cd timeshift
 makepkg -si
 
-echo  ./arch/aur-timeshift >> ~/deployworkenv.log
+echo "$0" >> ~/deployworkenv.log
