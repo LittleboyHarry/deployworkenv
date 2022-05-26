@@ -1,0 +1,6 @@
+#!/bin/bash
+cd ~/.local/share/applications/
+cp /usr/share/applications/workrave.desktop .
+sed -i "/Exec/ s/$/ --display=:0/" workrave.desktop
+
+echo "$0" >> ~/deployworkenv.log
