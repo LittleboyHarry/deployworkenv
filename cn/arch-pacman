@@ -1,0 +1,7 @@
+#!/bin/bash
+sudo sed -i '/--sort/ s/age/rate/' /etc/xdg/reflector/reflector.conf
+echo "-c cn" | sudo tee -a /etc/xdg/reflector/reflector.conf
+sudo systemctl restart reflector
+yes | sudo pacman -Sy
+
+echo "$0" >> ~/deployworkenv.log

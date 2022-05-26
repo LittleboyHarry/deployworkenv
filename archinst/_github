@@ -1,0 +1,4 @@
+#!/bin/bash
+TMP=$(mktemp -d)
+curl -L https://github.com/LittleboyHarry/deployworkenv/tarball/main | tar xz --strip 1 -C "$TMP"
+cp -r "$TMP/archinst" .

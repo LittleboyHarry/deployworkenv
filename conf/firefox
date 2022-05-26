@@ -1,6 +1,5 @@
 #!/bin/bash
-cat << END >> "$(find ~/.mozilla/firefox -type d -name *.default-release)/user.js"
-user_pref("ui.key.menuAccessKeyFocuses", false);
-END
+target=$(find ~/.mozilla/firefox -type d -name *.default-release)/user.js
+cat "$(dirname $0)/firefox-user.js" >> "$target"
 
 echo "$0" >> ~/deployworkenv.log
