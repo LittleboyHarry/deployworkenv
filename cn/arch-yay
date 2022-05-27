@@ -7,5 +7,6 @@ cd ~
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+yay --editmenu --save
 
 echo "$0" >> ~/deployworkenv.log

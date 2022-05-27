@@ -1,0 +1,7 @@
+#!/bin/bash
+sudo pacman -S pkgfile --noconfirm
+sudo pkgfile -u
+echo source /usr/share/doc/pkgfile/command-not-found.zsh | tee -a ~/.zshrc &> /dev/null
+echo source /usr/share/doc/pkgfile/command-not-found.bash | tee -a ~/.bashrc &> /dev/null
+
+echo "$0" >> ~/deployworkenv.log

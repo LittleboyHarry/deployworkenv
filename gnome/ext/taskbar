@@ -14,13 +14,15 @@ dot-size=5
 trans-use-custom-opacity=true
 trans-use-dynamic-opacity=true
 appicon-padding=12
-appicon-margin=2
+appicon-margin=0
 middle-click-action='QUIT'
 shift-click-action='LAUNCH'
 scroll-panel-action='NOTHING'
+scroll-icon-action='NOTHING'
 show-showdesktop-hover=true
 window-preview-size=380
 click-action='TOGGLE-SHOWPREVIEW'
+show-apps-icon-side-padding=0
 END
 gnome_install_extension 'dash-to-panel@jderose9.github.com'
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "-c cn" | sudo tee -a /etc/xdg/reflector/reflector.conf
+echo "-c cn" | sudo tee -a /etc/xdg/reflector/reflector.conf &> /dev/null
 sudo systemctl restart reflector
 sudo sed -i '/^#ParallelDownloads/ s/^#//' /etc/pacman.conf
 yes | sudo pacman -Sy
