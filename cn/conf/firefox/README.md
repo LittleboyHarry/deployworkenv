@@ -7,7 +7,7 @@
 
 ## 配置方法
 
-1.           firefox about:profiles
-2.  在 `default-release` 表格 `根目录` 中，点击“打开目录”
-3.  下载 [`user.js`](./user.js) 到该目录中
-4.  重启 Firefox 生效
+1.     firefox about:profiles
+2. 在 `default-release` 表格 `根目录` 中，点击“打开目录”
+3. 下载 [`user.js`](./user.js) 到该目录中
+4. 重启 Firefox 生效
