@@ -2,7 +2,7 @@
 export NOLOG=1
 DIR=$(dirname "$0")
 
-RUNZSH=no zsh/instomz
+RUNZSH=no "$DIR/instomz"
 zsh/setup
 
 echo '推荐的 .zshrc 配置：'

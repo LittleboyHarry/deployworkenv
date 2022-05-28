@@ -37,7 +37,15 @@ echo "INFO: Plugins list at: $ZPLG_LIST"
 echo
 
 # Special:
-echo "INFO: package installer = $PKG_INST_CMD"
+if [[ ! -d /run/systemd/system && "$PKG_INST_CMD" == pkcon* ]]; then
+    echo 'PackageKit not available! Maybe:'
+    echo '- `yes | sudo pacman -S `'
+    echo '- `sudo apt-get install -y `'
+    echo '- ...'
+    read -p 'Input your package manager install command: ' PKG_INST_CMD
+else
+    echo "INFO: package installer = $PKG_INST_CMD"
+fi
 echo
 
 read -p 'Install zsh-syntax-highlighting (Y/n)? ' r
