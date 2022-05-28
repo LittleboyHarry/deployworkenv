@@ -5,4 +5,9 @@ DIR=$(dirname "$0")
 RUNZSH=no zsh/instomz
 zsh/setup
 
+echo '推荐的 .zshrc 配置：'
+cat "$DIR/_recommend.zsh"
+read -p '是否使用 (Y/n)? ' r
+[[ "$r" =~ ^(Y|y|)$ ]] && cat "$DIR/_recommend.zsh" >>~/.zshrc
+
 echo "$0" >>~/deployworkenv.log
