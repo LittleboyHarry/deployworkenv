@@ -1,0 +1,8 @@
+#!/bin/bash
+cat <<END >>~/.zshrc
+export SUDO_PROMPT='[sudo] %p 的密码 🔐：'
+alias cls=clear
+alias nv=nvim
+END
+
+echo "$0" >>~/deployworkenv.log
