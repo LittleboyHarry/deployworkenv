@@ -1,0 +1,7 @@
+#!/bin/bash
+NOLOG=1 \
+    SCRIPTURL=https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh \
+    REMOTE=https://gitee.com/mirrors/oh-my-zsh.git \
+    zsh/instomz
+
+echo "$0" >>~/deployworkenv.log

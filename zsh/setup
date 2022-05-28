@@ -1,0 +1,41 @@
+#!/bin/bash
+ZPLGLIST=${ZPLG_LISTFILE:-$HOME/.zshrc.pluglist}
+ZPLGLOADER=${ZPLG_LOADER:-$HOME/.zshrc.plugloader}
+ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+
+DIR=$(dirname "$0")
+
+test -d "$ZSH" || NOLOG=1 RUNZSH=no "$DIR/instomz"
+echo >>~/.zshrc
+
+echo 'setopt beep nomatch notify' >>~/.zshrc
+
+sed -i "/disable automatic updates/ s/^#[ ]*//" ~/.zshrc
+echo 'Manually update: omz update'
+
+ZSH_CUSTOM="$ZSH/custom"
+TMPL_ZPLGLIST="$DIR/_omzpluglist"
+TMPL_ZPLGLOADER="$DIR/_omzplugloader.zsh"
+
+[[ -f "$ZPLGLIST" ]] || cat "$TMPL_ZPLGLIST" >"$ZPLGLIST"
+[ -x "$(command -v systemctl)" ] && echo systemd >>"$ZPLGLIST"
+[ -x "$(command -v dpkg)" ] && echo debian >>"$ZPLGLIST"
+[ -x "$(command -v dnf)" ] && echo dnf >>"$ZPLGLIST"
+[ -x "$(command -v lsb_release)" ] && lsb_release -si | grep -qi "^Arch" && echo archlinux >>"$ZPLGLIST"
+[[ -f "$ZPLGLOADER" ]] || cat "$TMPL_ZPLGLOADER" >"$ZPLGLOADER"
+sed -i "s#plugins=(git)\$#source \"$ZPLGLOADER\"#" ~/.zshrc
+echo "Plugins loader at: $ZPLGLOADER"
+echo "Plugins list at: $ZPLGLIST"
+
+if [[ "$(grep ^ZSH_THEME= .zshrc | cut -d'"' -f2)" != "steeef" ]]; then
+    read -p 'Use ohmyzsh steeef theme (Y/n)? ' r
+    if [[ "$r" =~ ^(y|Y|)$ ]]; then
+        cp $ZSH/themes/steeef.zsh-theme $ZSH_CUSTOM/themes
+        sed -i -e '/^PROMPT=\$/i local exit_code="%(?,,C:%{$fg[red]%}%?%{$reset_color%})"' -e "/^PROMPT=\\$'$/{n;s/$/ [%*] \$exit_code/;}" $ZSH_CUSTOM/themes/steeef.zsh-theme
+        sed -i 's/^ZSH_THEME=".*"/ZSH_THEME="steeef"/' ~/.zshrc
+    fi
+fi
+
+echo >>~/.zshrc
+
+[[ -v NOLOG ]] || echo "$0" >>~/deployworkenv.log

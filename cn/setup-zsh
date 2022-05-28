@@ -1,0 +1,8 @@
+#!/bin/bash
+export NOLOG=1
+DIR=$(dirname "$0")
+
+RUNZSH=no zsh/instomz
+zsh/setup
+
+echo "$0" >>~/deployworkenv.log
