@@ -1,6 +1,7 @@
 #!/bin/bash
 source "$(dirname $0)/_common.bash"
 
+dconf write /org/gnome/shell/extensions/just-perfection/notification-banner-position 3
 dconf load /org/gnome/shell/extensions/dash-to-panel/ <<END
 [/]
 isolate-monitors=true
@@ -24,6 +25,6 @@ window-preview-size=380
 click-action='TOGGLE-SHOWPREVIEW'
 show-apps-icon-side-padding=0
 END
-gnome_install_extension 'dash-to-panel@jderose9.github.com'
+gnome-install-extension 'dash-to-panel@jderose9.github.com'
 
 echo "$0" >> ~/deployworkenv.log

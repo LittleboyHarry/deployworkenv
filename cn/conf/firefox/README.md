@@ -8,6 +8,6 @@
 ## 配置方法
 
 1.     firefox about:profiles
-2. 在 `default-release` 表格 `根目录` 中，点击“打开目录”
+2. 找到 “正在使用此配置文件” 对应表格的 “根目录” 行上点击“打开目录”
 3. 下载 [`user.js`](./user.js) 到该目录中
 4. 重启 Firefox 生效

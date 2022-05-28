@@ -7,6 +7,6 @@ icon-size=24
 tray-pos='left'
 END
 gnome-extensions list | grep -q 'ubuntu-appindicators@ubuntu.com' ||
-gnome_install_extension 'appindicatorsupport@rgcjonas.gmail.com'
+gnome-install-extension 'appindicatorsupport@rgcjonas.gmail.com'
 
 echo "$0" >> ~/deployworkenv.log

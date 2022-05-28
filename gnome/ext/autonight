@@ -6,6 +6,6 @@ dconf load /org/gnome/shell/extensions/nightthemeswitcher/ <<END
 always-enable-ondemand=true
 nightthemeswitcher-ondemand-keybinding=['']
 END
-gnome_install_extension 'nightthemeswitcher@romainvigier.fr'
+gnome-install-extension 'nightthemeswitcher@romainvigier.fr'
 
 echo "$0" >> ~/deployworkenv.log

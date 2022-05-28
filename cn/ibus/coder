@@ -1,0 +1,6 @@
+#!/bin/bash
+
+dconf write /com/github/libpinyin/ibus-libpinyin/libpinyin/trad-switch "''"
+dconf write /com/github/libpinyin/ibus-libpinyin/libpinyin/punct-switch "''"
+
+echo "$0" >> ~/deployworkenv.log

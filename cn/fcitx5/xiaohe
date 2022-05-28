@@ -1,0 +1,7 @@
+#!/bin/bash
+
+kwriteconfig5 --file fcitx5/profile --group Groups/0 --key DefaultIM shuangpin
+kwriteconfig5 --file fcitx5/profile --group Groups/0/Items/1 --key Name shuangpin
+kwriteconfig5 --file fcitx5/conf/pinyin.conf --group "<default>" --key ShuangpinProfile Xiaohe
+
+echo "$0" >> ~/deployworkenv.log

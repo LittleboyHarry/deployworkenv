@@ -1,0 +1,11 @@
+#!/bin/bash
+
+kwriteconfig5 --file fcitx5/config --group Hotkey/TriggerKeys --key 0 Super+space
+kwriteconfig5 --file fcitx5/conf/chttrans.conf --group Hotkey --key 0 ''
+
+if [ -x "$(command -v gsettings)" ]; then
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source "[]"
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "[]"
+fi
+
+echo "$0" >> ~/deployworkenv.log

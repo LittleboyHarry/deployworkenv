@@ -9,10 +9,10 @@ dconf write /org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bo
 dconf write /org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-bottom-right-0/action "'open-panel-aggregate-menu'"
 
 $UUID1=dash-to-dock@micxgx.gmail.com
-gnome-extensions list | grep -q $UUID1 || gnome_install_extension $UUID1
+gnome-extensions list | grep -q $UUID1 || gnome-install-extension $UUID1
 
 read -p "use Custom Hot Corners Extended (y/N)?" r
 [[ "$r" =~ ^(y|Y)$ ]] &&
-gnome_install_extension custom-hot-corners-extended@G-dH.github.com
+    gnome-install-extension custom-hot-corners-extended@G-dH.github.com
 
 echo ? "$0" >> ~/deployworkenv.log

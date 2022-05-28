@@ -10,6 +10,6 @@ enable-alttab-gesture=false
 allow-minimize-window=true
 touchpad-speed-scale=1.25
 END
-gnome_install_extension 'babar@fthx'
+gnome-install-extension 'babar@fthx'
 
 echo "$0" >> ~/deployworkenv.log

@@ -3,6 +3,6 @@ source "$(dirname $0)/_common.bash"
 
 UUID=places-menu@gnome-shell-extensions.gcampax.github.com
 gnome-extensions enable $UUID ||
-gnome_install_extension $UUID
+gnome-install-extension $UUID
 
 echo "$0" >> ~/deployworkenv.log

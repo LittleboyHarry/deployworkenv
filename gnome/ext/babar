@@ -11,6 +11,6 @@ icon-size=38
 reduce-padding=false
 right-click=false
 END
-gnome_install_extension 'babar@fthx'
+gnome-install-extension 'babar@fthx'
 
 echo "$0" >> ~/deployworkenv.log

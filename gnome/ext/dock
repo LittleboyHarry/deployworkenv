@@ -11,6 +11,6 @@ scroll-action='cycle-windows'
 middle-click-action='quit'
 click-action='focus-minimize-or-previews'
 END
-gnome_install_extension 'dash-to-dock@micxgx.gmail.com'
+gnome-install-extension 'dash-to-dock@micxgx.gmail.com'
 
 echo "$0" >> ~/deployworkenv.log

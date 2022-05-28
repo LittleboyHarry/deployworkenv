@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cat << END | dconf load /com/github/libpinyin/ibus-libpinyin/libpinyin/
+[/]
+double-pinyin=true
+double-pinyin-schema=5
+END
+
+echo "$0" >> ~/deployworkenv.log

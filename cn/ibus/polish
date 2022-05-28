@@ -1,0 +1,15 @@
+#!/bin/bash
+
+dconf write /com/github/libpinyin/ibus-libpinyin/libpinyin/lookup-table-orientation 1
+
+echo ? "$0" >> ~/deployworkenv.log
+
+read -p '安装 GNOME 推荐扩展 `Customize IBus` 吗 (y/N)?' r
+if [[ "$r" =~ ^(y|Y)$ ]]; then
+    UUID=customize-ibus@hollowman.ml
+    source gnome/ext/_common.bash
+    dconf write /org/gnome/shell/extensions/customize-ibus/input-indicator-only-on-toggle true
+    dconf write /desktop/ibus/panel/use-custom-font true
+    gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Extensions.InstallRemoteExtension $UUID
+    gnome-extensions prefs $UUID
+fi
