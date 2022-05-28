@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat << END | sudo tee /etc/profile.d/fcitx5.sh > /dev/null
+cat <<END | sudo tee /etc/profile.d/fcitx5.sh >/dev/null
 if [ ! "$XDG_SESSION_TYPE" = "tty" ]
 then
     export INPUT_METHOD=fcitx
@@ -11,6 +11,6 @@ fi
 END
 
 read -p '立刻重启计算机以生效 (y/N)?' r
-[[ "$r" =~ ^(y|Y)$ ]] && sudo reboot
+[[ "$r" =~ ^(Y|y)$ ]] && sudo reboot
 
-echo "$0" >> ~/deployworkenv.log
+echo "$0" >>~/deployworkenv.log

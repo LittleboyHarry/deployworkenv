@@ -12,7 +12,7 @@ $UUID1=dash-to-dock@micxgx.gmail.com
 gnome-extensions list | grep -q $UUID1 || gnome-install-extension $UUID1
 
 read -p "use Custom Hot Corners Extended (y/N)?" r
-[[ "$r" =~ ^(y|Y)$ ]] &&
+[[ "$r" =~ ^(Y|y)$ ]] &&
     gnome-install-extension custom-hot-corners-extended@G-dH.github.com
 
-echo ? "$0" >> ~/deployworkenv.log
+echo ? "$0" >>~/deployworkenv.log

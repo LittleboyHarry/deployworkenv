@@ -1,45 +1,45 @@
 #!/bin/bash
 read -p '1. Enable touchpad touch as click (Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] &&
+[[ "$r" =~ ^(Y|y|)$ ]] &&
     gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 
 read -p '2. Show maximum/minimum window button (Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] &&
+[[ "$r" =~ ^(Y|y|)$ ]] &&
     gsettings set org.gnome.desktop.wm.preferences button-layout appmenu:minimize,maximize,close
 
 read -p '3. Skip 60s shutdown confirm (Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] &&
+[[ "$r" =~ ^(Y|y|)$ ]] &&
     gsettings set org.gnome.SessionManager logout-prompt false
 
 read -p '4. Press computer power button to shutdown (Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] &&
+[[ "$r" =~ ^(Y|y|)$ ]] &&
     gsettings set org.gnome.settings-daemon.plugins.power power-button-action interactive
 
 read -p '5. Allow `Super + Right Drag` to resize a window (Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] &&
+[[ "$r" =~ ^(Y|y|)$ ]] &&
     gsettings set org.gnome.desktop.wm.preferences resize-with-right-button true
 
 read -p '6. Restrict `Alt + Tab` to the current workspace (Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] &&
+[[ "$r" =~ ^(Y|y|)$ ]] &&
     gsettings set org.gnome.shell.app-switcher current-workspace-only true
 
 read -p '7. Disable search unicode characters uselessly in search result (Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] &&
+[[ "$r" =~ ^(Y|y|)$ ]] &&
     gsettings set org.gnome.desktop.search-providers disabled "['org.gnome.Characters.desktop']"
 
 read -p '8. Press `Super + D` to show desktop (Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] &&
+[[ "$r" =~ ^(Y|y|)$ ]] &&
     gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Super>d']"
 
 read -p '9. Enable process tree in system monitor(Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] &&
+[[ "$r" =~ ^(Y|y|)$ ]] &&
     dconf write /org/gnome/gnome-system-monitor/show-dependencies true
 
 read -p '10. Better windows switcher by Alt + `(Y/n)? ' r
-[[ "$r" =~ ^(y|Y|)$ ]] && dconf load /org/gnome/desktop/wm/keybindings/ <<END
+[[ "$r" =~ ^(Y|y|)$ ]] && dconf load /org/gnome/desktop/wm/keybindings/ <<END
 [/]
 cycle-group=['<Alt>grave']
 cycle-group-backward=['<Shift><Alt>grave']
 END
 
-echo ? "$0" >> ~/deployworkenv.log
+echo ? "$0" >>~/deployworkenv.log

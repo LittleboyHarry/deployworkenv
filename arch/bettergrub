@@ -13,13 +13,13 @@ sudo sed -i '/^#GRUB_DISABLE_OS_PROBER/ s/^#//' /etc/default/grub
 
 # recommend
 read -p 'use "breeze-grub" theme (y/N)?' r
-if [[ "$r" =~ ^(y|Y)$ ]]; then
+if [[ "$r" =~ ^(Y|y)$ ]]; then
     yes | sudo pacman -S breeze-grub
     sudo cp -r /usr/share/grub/themes/breeze /boot/grub/themes
-    echo GRUB_THEME=/boot/grub/themes/breeze/theme.txt | sudo tee -a /etc/default/grub &> /dev/null
+    echo GRUB_THEME=/boot/grub/themes/breeze/theme.txt | sudo tee -a /etc/default/grub &>/dev/null
 fi
 
 # apply
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
-echo "$0" >> ~/deployworkenv.log
+echo "$0" >>~/deployworkenv.log
