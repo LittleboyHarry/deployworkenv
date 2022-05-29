@@ -38,11 +38,20 @@ echo
 
 # Special:
 if [[ ! -d /run/systemd/system && "$PKG_INST_CMD" == pkcon* ]]; then
-    echo 'PackageKit not available! Maybe:'
-    echo '- `yes | sudo pacman -S `'
-    echo '- `sudo apt-get install -y `'
-    echo '- ...'
-    read -p 'Input your package manager install command: ' PKG_INST_CMD
+    if [ $USE_PACMAN = 1 ]; then
+        PKG_INST_CMD='sudo pacman -S --noconfirm '
+    elif [ -x "$(command -v dpkg)" ]; then
+        PKG_INST_CMD='sudo apt-get install -y '
+    elif [ -x "$(command -v dnf)" ]; then
+        PKG_INST_CMD='sudo dnf install -y '
+    else
+        echo 'PackageKit not available! Maybe:'
+        echo '- `sudo pacman -S --noconfirm `'
+        echo '- `sudo apt-get install -y `'
+        echo '- `sudo dnf install -y `'
+        echo '- ...'
+        read -p 'Input your package manager install command: ' PKG_INST_CMD
+    fi
 else
     echo "INFO: package installer = $PKG_INST_CMD"
 fi
@@ -85,7 +94,7 @@ if [ $USE_PACMAN = 1 ]; then
     if [[ "$r" =~ ^(Y|y|)$ ]]; then
         $PKG_INST_CMD pkgfile
         echo 'source /usr/share/doc/pkgfile/command-not-found.zsh' | tee -a ~/.zshrc >/dev/null
-        echo "==> sudo pkgfile -u"
+        echo "==> Run 'sudo pkgfile -u'"
         sudo pkgfile -u
     fi
 fi

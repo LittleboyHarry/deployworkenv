@@ -1,0 +1,8 @@
+#!/bin/bash
+printf "Your Name: " && read git_name
+git config --global user.name "$git_name"
+
+printf "Your Email: " && read git_email
+git config --global user.email "$git_email"
+
+echo "$0" >>~/deployworkenv.log

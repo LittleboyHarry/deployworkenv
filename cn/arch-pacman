@@ -1,7 +1,8 @@
 #!/bin/bash
+sudo pacman -S --noconfirm reflector
 sudo sed -i '/^--sort/ s/age/rate/' /etc/xdg/reflector/reflector.conf
-echo "-c cn" | sudo tee -a /etc/xdg/reflector/reflector.conf &> /dev/null
+echo "-c cn" | sudo tee -a /etc/xdg/reflector/reflector.conf &>/dev/null
 sudo systemctl restart reflector
 yes | sudo pacman -Sy
 
-echo "$0" >> ~/deployworkenv.log
+echo "$0" >>~/deployworkenv.log

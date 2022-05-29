@@ -1,12 +1,12 @@
 #!/bin/bash
 source "$(dirname $0)/_common.bash"
 
-cat << END | dconf load /org/gnome/shell/extensions/appindicator/
+cat <<END | dconf load /org/gnome/shell/extensions/appindicator/
 [/]
 icon-size=24
 tray-pos='left'
 END
-gnome-extensions list | grep -q 'ubuntu-appindicators@ubuntu.com' ||
-gnome-install-extension 'appindicatorsupport@rgcjonas.gmail.com'
+gnome-extensions list | grep -q 'ubuntu-appindicators@ubuntu.com\|appindicatorsupport@rgcjonas.gmail.com' ||
+    gnome-install-extension 'appindicatorsupport@rgcjonas.gmail.com'
 
-echo "$0" >> ~/deployworkenv.log
+echo "$0" >>~/deployworkenv.log
