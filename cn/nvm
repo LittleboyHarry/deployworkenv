@@ -1,0 +1,4 @@
+#!/bin/bash
+wget -qO- https://gitee.com/mirrors/nvm/raw/v0.39.1/install.sh | sed '/NVM_SOURCE_URL=/{s#raw.githubusercontent.com/${NVM_GITHUB_REPO}#gitee.com/mirrors/nvm/raw#;s#github.com/${NVM_GITHUB_REPO}#gitee.com/mirrors/nvm#}' | bash
+
+echo "$0" >>~/deployworkenv.log
