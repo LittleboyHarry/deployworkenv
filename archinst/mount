@@ -13,4 +13,4 @@ mount "/dev/$n" boot
 
 mkdir boot/efi
 read -p 'which mount to /boot/efi (/dev/?):' n
-mmount "/dev/$n" boot/efi
+mount "/dev/$n" boot/efi

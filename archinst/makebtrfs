@@ -2,7 +2,7 @@
 set -e
 test -z "$deviceName" && lsblk && read -p 'partition name (/dev/?):' deviceName
 if [ -z "$noEncrypt"]; then
-    cryptsetup close cryptlvm &> /dev/null
+    cryptsetup close cryptlvm &> /dev/null || true
     cryptsetup luksFormat -q "/dev/$deviceName"
     printf "Again "
     cryptsetup open "/dev/$deviceName" cryptlvm
