@@ -1,4 +1,6 @@
 #!/bin/bash
-cd /mnt/archinstall/boot
-tar -zcvf boot.tgz .
-sed -i '/btrfs/ s/,subvolid=[0-9]*,/,/' /mnt/archinstall/etc/fstab
+cd /mnt/archinstall
+( cd boot && tar -zcf boot.tgz . )
+genfstab -U . >> etc/fstab
+sed -i '/btrfs/ s/,subvolid=[0-9]*,/,/' etc/fstab
+arch-chroot . grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=grub

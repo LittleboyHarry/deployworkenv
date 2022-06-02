@@ -1,3 +1,5 @@
 #!/bin/bash
-read -p "change --efi-directory=/boot to --efi-directory=/boot/efi in next line by nano. (Y)"
+read -p "change --efi-directory=/boot to --efi-directory=/boot/efi in next line by nano. (Enter)"
 nano +930 /usr/lib/python*/site-packages/archinstall/lib/installer.py
+read -p "add '=none' after 'option' (Enter)"
+nano +258 /usr/lib/python*/site-packages/archinstall/examples/swiss.py
