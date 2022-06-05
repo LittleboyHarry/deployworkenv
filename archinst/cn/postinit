@@ -1,4 +1,5 @@
 #!/bin/bash
+systemctl restart reflector
 DIR=$(dirname "$0")
 "$DIR/../postinit"
 set -e
@@ -12,6 +13,8 @@ echo "-c cn" | arch-chroot . tee -a /etc/xdg/reflector/reflector.conf &>/dev/nul
 arch-chroot . systemctl restart reflector
 arch-chroot . pacman -Sy
 
-if arch-chroot . pacman -Q firefox &>/dev/null; then
+[ "$(arch-chroot . pacman -Qs gnome)" ] &&
+    arch-chroot . pacman -Rns --noconfirm gnome-weather gnome-maps
+
+[ "$(arch-chroot . pacman -Qs firefox)" ] &&
     pacstrap . firefox-i18n-zh-cn
-fi

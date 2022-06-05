@@ -1,33 +1,79 @@
 #!/bin/bash
-set -e
-cd /mnt/archinstall
+if [ -z "$BETTER_GRUB" ]; then
+    read -p 'Use Better Grub { remember selection & reduce time & auto add other os & better theme } (Y/n)? ' r
+    [[ "$r" =~ ^(N|n)$ ]]
+    BETTER_GRUB=$?
+fi
 
-if [[ -x usr/bin/xdg-open ]]; then
+if [ -x usr/bin/xdg-open ]; then
     IS_DESKTOP=1
 
-    read -p 'Add Firefox (Y/n)? ' r
-    [[ "$r" =~ ^(N|n)$ ]]
-    ADD_FIREFOX=$?
+    if [ -z "$ADD_FIREFOX" ]; then
+        read -p 'Add Firefox (Y/n)? ' r
+        [[ "$r" =~ ^(N|n)$ ]]
+        ADD_FIREFOX=$?
+    fi
 
-    read -p 'Add Firefox Extensions { Dark Reader, decentraleyes, uBlock Origin, Tree Style Tab } (Y/n)? ' r
-    [[ "$r" =~ ^(N|n)$ ]]
-    ADD_FIREFOX_EXT=$?
+    if [ -z "$ADD_FIREFOX_EXT" ] && [ "$ADD_FIREFOX" = 1 ]; then
+        read -p 'Add Firefox Extensions { Dark Reader & decentraleyes & uBlock Origin & Tree Style Tab } (Y/n)? ' r
+        [[ "$r" =~ ^(N|n)$ ]]
+        ADD_FIREFOX_EXT=$?
+    fi
 fi
+
+if [ -z "$SETUP_DEVENV" ]; then
+    read -p 'Setup development environment (Y/n)? ' r
+    [[ "$r" =~ ^(N|n)$ ]]
+    SETUP_DEVENV=$?
+    if [ -z "$ADD_CODING_FONTS" ]; then
+        read -p 'Add coding or terminal-used fonts { Cascadia Code } (Y/n)? ' r
+        [[ "$r" =~ ^(N|n)$ ]]
+        ADD_CODING_FONTS=$?
+    fi
+fi
+
+cd /mnt/archinstall
+set -e
 
 genfstab -U . >>etc/fstab
 sed -i '/btrfs/ s/,subvolid=[0-9]*,/,/' etc/fstab
-pacstrap . git noto-fonts-emoji lsb-release
-if [[ "$IS_DESKTOP" == 1 ]]; then
+pacstrap . git lsb-release noto-fonts-emoji
+if [ "$IS_DESKTOP" = 1 ]; then
     pacstrap . gufw
+    [ "$(arch-chroot . pacman -Qs konsole)" ] &&
+        pacstrap . yakuake
 fi
-[[ -d usr/share/discover ]] && pacstrap . packagekit-qt5 || true
-arch-chroot . grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+[ -d usr/share/discover ] && pacstrap . packagekit-qt5 || true
+
+if [ "$BETTER_GRUB" = 1 ]; then
+    arch-chroot . sed -i "/GRUB_DEFAULT/ s/=.*/=saved/" /etc/default/grub
+    arch-chroot . sed -i '/GRUB_SAVEDEFAULT/ s/^#//' /etc/default/grub
+
+    arch-chroot . sed -i "/GRUB_TIMEOUT/ s/=.*/=2/" /etc/default/grub
+
+    pacstrap . os-prober
+    arch-chroot . sed -i '/^#GRUB_DISABLE_OS_PROBER/ s/^#//' /etc/default/grub
+
+    pacstrap . breeze-grub
+    cp -r usr/share/grub/themes/breeze boot/grub/themes
+    echo 'GRUB_THEME=/boot/grub/themes/breeze/theme.txt' | arch-chroot . tee -a etc/default/grub &>/dev/null
+
+    arch-chroot . grub-mkconfig -o /boot/grub/grub.cfg
+fi
+arch-chroot . grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 (cd boot && tar -zcf boot.tgz .) || true
 
-if [[ "$ADD_FIREFOX" == 1 ]]; then
+if [ "$ADD_FIREFOX" = 1 ]; then
     pacstrap . firefox
     arch-chroot . cp /usr/share/applications/firefox.desktop /usr/share/applications/firefox-wayland.desktop
     arch-chroot . sed -i -e 's/^Name=Firefox$/Name=Wayland Firefox/' -e 's/^Exec=/Exec=env MOZ_ENABLE_WAYLAND=1 /' /usr/share/applications/firefox-wayland.desktop
-    [[ "$ADD_FIREFOX_EXT" == 1 ]] &&
+    [ "$ADD_FIREFOX_EXT" = 1 ] &&
         pacstrap . firefox-dark-reader firefox-decentraleyes firefox-ublock-origin firefox-tree-style-tab
 fi
+
+if [ "$SETUP_DEVENV" = 1 ]; then
+    pacstrap . base-devel
+fi
+
+[ "$ADD_CODING_FONTS" = 1 ] &&
+    pacstrap . ttf-cascadia-code

@@ -2,10 +2,13 @@
 export NOLOG=1
 DIR=$(dirname "$0")
 
-RUNZSH=no \
-    SCRIPTURL=https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh \
-    REMOTE=https://gitee.com/mirrors/oh-my-zsh.git \
-    zsh/setup
+read -p '安装时用 Gitee 镜像仓库取代 GitHub 源 (Y/n)? ' r
+if [[ "$r" =~ ^(Y|y|)$ ]]; then
+    export SCRIPTURL=https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh
+    export REMOTE=https://gitee.com/mirrors/oh-my-zsh.git
+fi
+
+RUNZSH=no zsh/setup
 
 echo '推荐的 .zshrc 配置：'
 cat "$DIR/_recommend.zsh"
