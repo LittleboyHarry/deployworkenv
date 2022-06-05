@@ -1,0 +1,17 @@
+#!/bin/bash
+DIR=$(dirname "$0")
+"$DIR/../postinit"
+set -e
+
+cd /mnt/archinstall
+pacstrap . noto-fonts-cjk reflector
+arch-chroot . sed -i "/^#zh_CN.U/ s/^#//" /etc/locale.gen
+arch-chroot . locale-gen
+arch-chroot . sed -i '/^--sort/ s/age/rate/' /etc/xdg/reflector/reflector.conf
+echo "-c cn" | arch-chroot . tee -a /etc/xdg/reflector/reflector.conf &>/dev/null
+arch-chroot . systemctl restart reflector
+arch-chroot . pacman -Sy
+
+if arch-chroot . pacman -Q firefox &>/dev/null; then
+    pacstrap . firefox-i18n-zh-cn
+fi

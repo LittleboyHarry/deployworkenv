@@ -10,7 +10,7 @@ then
 fi
 END
 
-read -p '立刻重启计算机以生效 (y/N)?' r
+read -p '立刻重启计算机以生效 (y/N)? ' r
 [[ "$r" =~ ^(Y|y)$ ]] && sudo reboot
 
 echo "$0" >>~/deployworkenv.log

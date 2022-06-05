@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 sudo pacman -S gcc-go --noconfirm
 cd ~
 git clone https://aur.archlinux.org/yay.git

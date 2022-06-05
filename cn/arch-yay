@@ -6,7 +6,8 @@ export GOPROXY=https://goproxy.cn,direct
 cd ~
 git clone https://aur.archlinux.org/yay.git
 cd yay
+vim PKGBUILD
 makepkg -si
 yay --editmenu --save
 
-echo "$0" >> ~/deployworkenv.log
+echo "$0" >>~/deployworkenv.log

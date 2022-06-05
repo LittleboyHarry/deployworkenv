@@ -1,11 +1,15 @@
 #!/bin/bash
+set -e
+
 sudo pacman -S cronie --noconfirm
 sudo systemctl enable --now cronie
 
+cd ~
 git clone https://aur.archlinux.org/timeshift.git
 cd timeshift
+vim PKGBUILD
 makepkg -si
 
-echo "$0" >> ~/deployworkenv.log
+echo "$0" >>~/deployworkenv.log
 
 sudo timeshift

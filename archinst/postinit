@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+cd /mnt/archinstall
+
+if [[ -x usr/bin/xdg-open ]]; then
+    IS_DESKTOP=1
+
+    read -p 'Add Firefox (Y/n)? ' r
+    [[ "$r" =~ ^(N|n)$ ]]
+    ADD_FIREFOX=$?
+
+    read -p 'Add Firefox Extensions { Dark Reader, decentraleyes, uBlock Origin, Tree Style Tab } (Y/n)? ' r
+    [[ "$r" =~ ^(N|n)$ ]]
+    ADD_FIREFOX_EXT=$?
+fi
+
+genfstab -U . >>etc/fstab
+sed -i '/btrfs/ s/,subvolid=[0-9]*,/,/' etc/fstab
+pacstrap . git noto-fonts-emoji lsb-release
+if [[ "$IS_DESKTOP" == 1 ]]; then
+    pacstrap . gufw
+fi
+[[ -d usr/share/discover ]] && pacstrap . packagekit-qt5 || true
+arch-chroot . grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+(cd boot && tar -zcf boot.tgz .) || true
+
+if [[ "$ADD_FIREFOX" == 1 ]]; then
+    pacstrap . firefox
+    arch-chroot . cp /usr/share/applications/firefox.desktop /usr/share/applications/firefox-wayland.desktop
+    arch-chroot . sed -i -e 's/^Name=Firefox$/Name=Wayland Firefox/' -e 's/^Exec=/Exec=env MOZ_ENABLE_WAYLAND=1 /' /usr/share/applications/firefox-wayland.desktop
+    [[ "$ADD_FIREFOX_EXT" == 1 ]] &&
+        pacstrap . firefox-dark-reader firefox-decentraleyes firefox-ublock-origin firefox-tree-style-tab
+fi

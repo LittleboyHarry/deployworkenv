@@ -1,4 +1,10 @@
 #!/bin/bash
+set -e
+if [ -z "$BREEZE_THEME" ]; then
+    read -p 'use "breeze-grub" theme (Y/n)? ' r
+    [[ "$r" =~ ^(N|n)$ ]]
+    BREEZE_THEME=$?
+fi
 
 # remember boot selection
 sudo sed -i "/GRUB_DEFAULT/ s/=.*/=saved/" /etc/default/grub
@@ -12,8 +18,7 @@ sudo pacman -S os-prober
 sudo sed -i '/^#GRUB_DISABLE_OS_PROBER/ s/^#//' /etc/default/grub
 
 # recommend
-read -p 'use "breeze-grub" theme (y/N)?' r
-if [[ "$r" =~ ^(Y|y)$ ]]; then
+if [[ "$BREEZE_THEME" = 1 ]]; then
     yes | sudo pacman -S breeze-grub
     sudo cp -r /usr/share/grub/themes/breeze /boot/grub/themes
     echo GRUB_THEME=/boot/grub/themes/breeze/theme.txt | sudo tee -a /etc/default/grub &>/dev/null

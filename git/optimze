@@ -1,11 +1,11 @@
 #!/bin/bash
-read -p 'Use `main` rather then `master` as default branch name (Y/n)?' r
+read -p 'Use `main` rather then `master` as default branch name (Y/n)? ' r
 [[ "$r" =~ ^(Y|y|)$ ]] &&
     git config --global init.defaultBranch main
 
 echo
 echo "See: https://stackoverflow.com/questions/30208928"
-read -p 'Auto stash current changes before rebase and merge (Y/n)?' r
+read -p 'Auto stash current changes before rebase and merge (Y/n)? ' r
 if [[ "$r" =~ ^(Y|y|)$ ]]; then
     git config --global rebase.autostash true
     git config --global merge.autostash true

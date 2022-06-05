@@ -2,8 +2,10 @@
 export NOLOG=1
 DIR=$(dirname "$0")
 
-RUNZSH=no "$DIR/instomz"
-zsh/setup
+RUNZSH=no \
+    SCRIPTURL=https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh \
+    REMOTE=https://gitee.com/mirrors/oh-my-zsh.git \
+    zsh/setup
 
 echo '推荐的 .zshrc 配置：'
 cat "$DIR/_recommend.zsh"

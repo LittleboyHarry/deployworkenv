@@ -1,6 +1,9 @@
 #!/bin/bash
+set -e
+
 git clone https://aur.archlinux.org/chrome-gnome-shell.git
 cd chrome-gnome-shell
+vim PKGBUILD
 makepkg -si
 
-echo "$0" >> ~/deployworkenv.log
+echo "$0" >>~/deployworkenv.log

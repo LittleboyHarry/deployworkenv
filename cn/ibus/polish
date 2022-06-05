@@ -4,7 +4,7 @@ dconf write /com/github/libpinyin/ibus-libpinyin/libpinyin/lookup-table-orientat
 
 echo ? "$0" >>~/deployworkenv.log
 
-read -p '安装 GNOME 推荐扩展 `Customize IBus` 吗 (y/N)?' r
+read -p '安装 GNOME 推荐扩展 `Customize IBus` 吗 (y/N)? ' r
 if [[ "$r" =~ ^(Y|y)$ ]]; then
     UUID=customize-ibus@hollowman.ml
     source gnome/ext/_common.bash

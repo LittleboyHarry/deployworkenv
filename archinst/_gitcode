@@ -1,4 +1,5 @@
 #!/bin/bash
 TMP=$(mktemp -d)
-curl -L https://gitcode.net/lbh/dwe/-/archive/main/dwe-main.tar.gz | tar xz --strip 1 -C "$TMP"
+curl -fsSL https://gitcode.net/lbh/dwe/-/archive/main/dwe-main.tar.gz | tar xz --strip 1 -C "$TMP"
 cp -r "$TMP/archinst" .
+mv archinst ais

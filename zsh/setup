@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Constant:
 ZPLG_LIST=${ZPLG_LIST:-$HOME/.zshrc.pluglist}
@@ -14,36 +15,10 @@ USING_PACMAN=$(
     echo $?
 )
 
-# Ask:
-function ask_installer() {
-    [ -v USE_PKGINST ] && return
-
-    if [[ -x "$(command -v pkcon)" && -d /run/systemd/system ]]; then
-        USE_PKGINST='pkcon install -y '
-    elif [ $USING_PACMAN = 1 ]; then
-        USE_PKGINST='sudo pacman -S --noconfirm '
-    elif [ -x "$(command -v dpkg)" ]; then
-        USE_PKGINST='sudo apt-get install -y '
-    elif [ -x "$(command -v dnf)" ]; then
-        USE_PKGINST='sudo dnf install -y '
-    fi
-
-    if [ -v USE_PKGINST ]; then
-        echo "INFO: package installer = $USE_PKGINST"
-    else
-        echo 'PackageKit not available! Maybe:'
-        echo '- `sudo pacman -S --noconfirm `'
-        echo '- `sudo apt-get install -y `'
-        echo '- `sudo dnf install -y `'
-        echo '- ...'
-        read -p 'Input your package manager install command: ' USE_PKGINST
-    fi
-}
-
 function ask_recommend_theme() {
     [ -v USE_RECOMMEND_THEME ] && return
-    grep -q '^ZSH_THEME="steeef"$' ~/.zshrc && return
-    if [[ "$(grep '^ZSH_THEME=' ~/.zshrc | cut -d'"' -f2)" != "steeef" ]]; then
+    [ -f ~/.zshrc ] && grep -q '^ZSH_THEME="steeef"$' ~/.zshrc && return
+    if [[ ! -f ~/.zshrc || "$(grep '^ZSH_THEME=' ~/.zshrc | cut -d'"' -f2)" != "steeef" ]]; then
         read -p 'Use ohmyzsh steeef theme (Y/n)? ' r
         [[ "$r" =~ ^(Y|y|)$ ]] && USE_RECOMMEND_THEME=1
     fi
@@ -51,14 +26,14 @@ function ask_recommend_theme() {
 
 function ask_syntax_highlight() {
     [ -v USE_SYNTAX_HIGHLIGHT ] && return
-    grep -q '^source .*zsh-syntax-highlighting.zsh' ~/.zshrc && return
+    [ -f ~/.zshrc ] && grep -q '^source .*zsh-syntax-highlighting.zsh' ~/.zshrc && return
     read -p 'Install zsh-syntax-highlighting (Y/n)? ' r
     [[ "$r" =~ ^(Y|y|)$ ]] && USE_SYNTAX_HIGHLIGHT=1
 }
 
 function ask_auto_suggest() {
     [ -v USE_AUTO_SUGGEST ] && return
-    grep -q '^source .*zsh-autosuggestions.zsh' ~/.zshrc && return
+    [ -f ~/.zshrc ] && grep -q '^source .*zsh-autosuggestions.zsh' ~/.zshrc && return
     read -p 'Install zsh-autosuggestions (Y/n)? ' r
     [[ "$r" =~ ^(Y|y|)$ ]] && USE_AUTO_SUGGEST=1
 }
@@ -77,7 +52,7 @@ function ask_common_alias() {
     [[ "$r" =~ ^(Y|y|)$ ]] && USE_COMMON_ALIAS=1
 }
 
-ask_installer
+source "$DIR/../pkginst/_prompt.bash"
 ask_recommend_theme
 ask_syntax_highlight
 ask_auto_suggest
@@ -142,6 +117,12 @@ if [ "$USE_AUTO_SUGGEST" = 1 ]; then
     else
         echo 'source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh' >>~/.zshrc
     fi
+    cat <<END >>~/.zshrc
+pasteinit(){OLD_SELF_INSERT=\${\${(s.:.)widgets[self-insert]}[2,3]};zle -N self-insert url-quote-magic}
+pastefinish(){zle -N self-insert \$OLD_SELF_INSERT}
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+END
 fi
 
 if [ "$USE_PACMAN_PKGFILE" = 1 ]; then
