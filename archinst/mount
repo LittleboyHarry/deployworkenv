@@ -1,17 +1,45 @@
 #!/bin/bash
 set -e
-mkdir -p /mnt/archinstall
-cd /mnt/archinstall
+
+function test_mount() {
+    mount | grep /mnt/archinstall
+}
+
+function prompt_device_file() {
+    while :; do
+        read -p "$1 (/dev/?): " DEVICE_NAME
+        DEVICE_FILE="/dev/$DEVICE_NAME"
+        if [ -b "$DEVICE_FILE" ]; then
+            break
+        elif [ -z "$DEVICE_NAME" ]; then
+            return 1
+        else
+            echo 'Invalid name!'
+        fi
+    done
+}
 
 lsblk
 
-mount | grep -q /mnt/archinstall || read -p 'which mount to /root (/dev/?):' n
-[ -z "$n" ] || mount "/dev/$n" . && cd .
+if [ ! -z "$(test_mount)" ]; then
+    test_mount
+    read -p 'Already mounted /mnt/archinstall, umount all (y/N)? ' r
+    [[ "$r" =~ ^(Y|y)$ ]] &&
+        umount -R /mnt/archinstall
+fi
 
-mkdir boot
-read -p 'which mount to /boot (/dev/?):' n
-mount "/dev/$n" boot
+if [ -z "$(test_mount)" ]; then
+    mkdir -p /mnt/archinstall
+    prompt_device_file 'which mount to /mnt/archinstall' &&
+        mount "$DEVICE_FILE" /mnt/archinstall
+fi
 
-mkdir boot/efi
-read -p 'which mount to /boot/efi (/dev/?):' n
-mount "/dev/$n" boot/efi
+if prompt_device_file 'which mount to /mnt/archinstall/boot'; then
+    mkdir -p /mnt/archinstall/boot
+    mount "$DEVICE_FILE" /mnt/archinstall/boot
+
+    if prompt_device_file 'which mount to /mnt/archinstall/boot/efi'; then
+        mkdir -p /mnt/archinstall/boot/efi
+        mount "$DEVICE_FILE" /mnt/archinstall/boot/efi
+    fi
+fi

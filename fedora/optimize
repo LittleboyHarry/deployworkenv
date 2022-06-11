@@ -1,0 +1,43 @@
+#!/bin/bash
+
+read -p 'Lockdown linux kernel version (y/N)? ' r
+[[ "$r" =~ ^(Y|y)$ ]] && LOCKDOWN_LINUX=1
+
+read -p 'Grub> remember the last choice (Y/n)? ' r
+[[ "$r" =~ ^(Y|y|)$ ]] && GRUB_REMEMBER=1
+
+read -p 'Grub> reduce wait time into 2 seconds (Y/n)? ' r
+[[ "$r" =~ ^(Y|y|)$ ]] && GRUB_WAITLESS=1
+
+read -p 'DNF> use fastest mirror (Y/n)? ' r
+[[ "$r" =~ ^(Y|y|)$ ]] && FASTEST_MIRROR=1
+
+if [ "$FASTEST_MIRROR" = 1 ]; then
+    echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf >/dev/null
+    sudo dnf config-manager --save --setopt=fastestmirror=True
+fi
+sudo dnf makecache
+
+if [ "$(grep ^VERSION_ID= /etc/os-release | cut -d= -f2)" -le 35 ]; then
+    sudo sed -i '/^SingleInstall/ s/=ask/=warn/' /etc/PackageKit/CommandNotFound.conf
+fi
+
+if [ "$GRUB_REMEMBER" = 1 ]; then
+    sudo sed -i "s/^GRUB_DEFAULT=.*$/GRUB_DEFAULT=saved/" /etc/default/grub
+    echo GRUB_SAVEDEFAULT=true | sudo tee -a /etc/default/grub >/dev/null
+    GRUB_MODIFIED=1
+fi
+
+if [ "$GRUB_WAITLESS" = 1 ]; then
+    sudo sed -i "s/^GRUB_TIMEOUT=.*$/GRUB_TIMEOUT=2/" /etc/default/grub
+    GRUB_MODIFIED=1
+fi
+
+[ -v GRUB_MODIFIED ] && sudo update-grub
+
+if [ "$LOCKDOWN_LINUX" = 1 ]; then
+    sudo dnf in -y 'dnf-command(versionlock)'
+    sudo dnf versionlock add kernel{,-core,-headers} linux-firmware
+fi
+
+echo ? "$0" >>~/deployworkenv.log

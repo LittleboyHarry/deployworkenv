@@ -4,5 +4,5 @@ cd /etc/xdg/reflector
 echo "-c cn" | tee -a reflector.conf &>/dev/null
 sed -i -e '/^--ipv4$/d' -e '/^--ipv6$/d' reflector.conf
 systemctl restart reflector
-sed -i '/^#ParallelDownloads/ s/^#//' /etc/pacman.conf
+sed -i '/^#Parall/ s/^#//' /etc/pacman.conf
 pacman -Sy --noconfirm

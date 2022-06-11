@@ -1,8 +1,8 @@
 #!/bin/bash
+set -e
 systemctl restart reflector
 DIR=$(dirname "$0")
 "$DIR/../postinit"
-set -e
 
 cd /mnt/archinstall
 pacstrap . noto-fonts-cjk reflector
@@ -13,7 +13,7 @@ echo "-c cn" | arch-chroot . tee -a /etc/xdg/reflector/reflector.conf &>/dev/nul
 arch-chroot . systemctl restart reflector
 arch-chroot . pacman -Sy
 
-[ "$(arch-chroot . pacman -Qs gnome)" ] &&
+[ "$(arch-chroot . pacman -Qs '^gnome$')" ] &&
     arch-chroot . pacman -Rns --noconfirm gnome-weather gnome-maps
 
 [ "$(arch-chroot . pacman -Qs firefox)" ] &&
