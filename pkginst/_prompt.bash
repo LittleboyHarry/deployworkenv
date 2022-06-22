@@ -1,6 +1,10 @@
 if [ -z "$USE_PKGINST" ]; then
     if [ $USING_PACMAN = 1 ]; then
-        USE_PKGINST='sudo pacman -S --noconfirm '
+        if [ -x "$(command -v sudo)" ]; then
+            USE_PKGINST='sudo pacman -S --noconfirm '
+        else
+            USE_PKGINST='pacman -S --noconfirm '
+        fi
     elif [ -x "$(command -v dpkg)" ]; then
         USE_PKGINST='sudo apt-get install -y '
     elif [ -x "$(command -v dnf)" ]; then

@@ -9,7 +9,7 @@ ZSH_CUSTOM="$ZSH/custom"
 
 # Environment:
 DIR=$(dirname "$0")
-DISTRO=$(lsb_release -si)
+[ -x "$(command -v lsb_release)" ] && DISTRO=$(lsb_release -si)
 USING_PACMAN=$(
     [ ! -x "$(command -v pacman)" ]
     echo $?
@@ -54,8 +54,10 @@ function ask_common_alias() {
 
 source "$DIR/../pkginst/_prompt.bash"
 ask_recommend_theme
-ask_syntax_highlight
-ask_auto_suggest
+if [ -v DISTRO ]; then
+    ask_syntax_highlight
+    ask_auto_suggest
+fi
 ask_common_alias
 [ $USING_PACMAN = 1 ] && ask_pacman_pkgfile
 
@@ -71,9 +73,11 @@ echo 'Manually update: omz update'
 
 if [ -v USE_RECOMMEND_THEME ]; then
     cp $ZSH/themes/steeef.zsh-theme $ZSH_CUSTOM/themes
-    sed -e '/^PROMPT=\$/i local exit_code="%(?,,C:%{$fg[red]%}%?%{$reset_color%})"' \
-        -e "/^PROMPT=\\$'$/{n;s/$/ [%*] \$exit_code/;s/%m/&(\$(lsb_release -si))/}" \
-        -i $ZSH_CUSTOM/themes/steeef.zsh-theme
+    sed -e '/^PROMPT=\$/i local exit_code="%(?,,C:%{$fg[red]%}%?%{$reset_color%})"' -i $ZSH_CUSTOM/themes/steeef.zsh-theme
+    sed -e "/^PROMPT=\\$'$/{n;s/$/ [%*] \$exit_code/}" -i $ZSH_CUSTOM/themes/steeef.zsh-theme
+    if [ -v DISTRO ]; then
+        sed -e "/^PROMPT=\\$'$/{n;s/%m/&(\$(lsb_release -si))/}" -i $ZSH_CUSTOM/themes/steeef.zsh-theme
+    fi
     sed -i 's/^ZSH_THEME=".*"/ZSH_THEME="steeef"/' ~/.zshrc
 fi
 
@@ -129,7 +133,11 @@ if [ "$USE_PACMAN_PKGFILE" = 1 ]; then
     $USE_PKGINST pkgfile
     echo 'source /usr/share/doc/pkgfile/command-not-found.zsh' | tee -a ~/.zshrc >/dev/null
     echo "==> Run 'sudo pkgfile -u'"
-    sudo pkgfile -u
+    if [ -v DISTRO ]; then
+        sudo pkgfile -u
+    else
+        pkgfile -u
+    fi
 fi
 
 [ "$USE_COMMON_ALIAS" = 1 ] && echo common-aliases >>"$ZPLG_LIST"
