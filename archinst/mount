@@ -7,6 +7,7 @@ function test_mount() {
 
 function prompt_device_file() {
     while :; do
+        echo
         read -p "$1 (/dev/?): " DEVICE_NAME
         DEVICE_FILE="/dev/$DEVICE_NAME"
         if [ -b "$DEVICE_FILE" ]; then

@@ -1,14 +1,18 @@
 #!/bin/bash
 
+echo
 read -p 'Lockdown linux kernel version (y/N)? ' r
 [[ "$r" =~ ^(Y|y)$ ]] && LOCKDOWN_LINUX=1
 
+echo
 read -p 'Grub> remember the last choice (Y/n)? ' r
 [[ "$r" =~ ^(Y|y|)$ ]] && GRUB_REMEMBER=1
 
+echo
 read -p 'Grub> reduce wait time into 2 seconds (Y/n)? ' r
 [[ "$r" =~ ^(Y|y|)$ ]] && GRUB_WAITLESS=1
 
+echo
 read -p 'DNF> use fastest mirror (Y/n)? ' r
 [[ "$r" =~ ^(Y|y|)$ ]] && FASTEST_MIRROR=1
 

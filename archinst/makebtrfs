@@ -3,6 +3,7 @@ set -e
 if [ -z "$DEVICE_FILE"]; then
     lsblk
     while :; do
+        echo
         read -p 'block device name (/dev/?): ' DEVICE_NAME
         DEVICE_FILE="/dev/$DEVICE_NAME"
         if [ -b "$DEVICE_FILE" ]; then

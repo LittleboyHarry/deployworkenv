@@ -10,6 +10,7 @@ then
 fi
 END
 
+echo
 read -p '立刻重启计算机以生效 (y/N)? ' r
 [[ "$r" =~ ^(Y|y)$ ]] && sudo reboot
 

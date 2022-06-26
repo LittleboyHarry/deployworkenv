@@ -3,11 +3,13 @@ set -e
 cd /mnt/archinstall
 
 if [ ! -v BETTER_GRUB ]; then
+    echo
     read -p 'Use Better Grub { remember selection & reduce time & better theme } (Y/n)? ' r
     [[ "$r" =~ ^(Y|y|)$ ]] && BETTER_GRUB=y
 fi
 
 if [ ! -v EXISTED_WINDOWS ]; then
+    echo
     read -p 'Existed Windows OS (y/N)? ' r
     [[ "$r" =~ ^(Y|y)$ ]] && EXISTED_WINDOWS=y
 fi
@@ -16,20 +18,24 @@ if [ -x usr/bin/xdg-open ]; then
     IS_DESKTOP=y
 
     if [ ! -v ADD_FIREFOX ]; then
+        echo
         read -p 'Add Firefox (Y/n)? ' r
         [[ "$r" =~ ^(Y|y|)$ ]] && ADD_FIREFOX=y
     fi
 
     if [ ! -v ADD_FIREFOX ] && [ ! -v ADD_FIREFOX_EXT ]; then
+        echo
         read -p 'Add Firefox Extensions { Dark Reader & decentraleyes & uBlock Origin & Tree Style Tab } (Y/n)? ' r
         [[ "$r" =~ ^(Y|y|)$ ]] && ADD_FIREFOX_EXT=y
     fi
 fi
 
 if [ ! -v SETUP_DEVENV ]; then
+    echo
     read -p 'Setup development environment (Y/n)? ' r
     [[ "$r" =~ ^(Y|y|)$ ]] && SETUP_DEVENV=y
     if [ ! -v ADD_CODING_FONTS ]; then
+        echo
         read -p 'Add coding or terminal-used fonts { Cascadia Code } (Y/n)? ' r
         [[ "$r" =~ ^(Y|y|)$ ]] && ADD_CODING_FONTS=y
     fi

@@ -17,6 +17,7 @@ fi
 if [ -v USE_PKGINST ]; then
     echo "INFO: package installer = $USE_PKGINST"
 else
+    echo
     echo "What's your package manager? such as:"
     echo '- `sudo pacman -S --noconfirm `'
     echo '- `sudo apt-get install -y `'

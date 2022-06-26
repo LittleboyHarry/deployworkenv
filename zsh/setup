@@ -19,6 +19,7 @@ function ask_recommend_theme() {
     [ -v USE_RECOMMEND_THEME ] && return
     [ -f ~/.zshrc ] && grep -q '^ZSH_THEME="steeef"$' ~/.zshrc && return
     if [[ ! -f ~/.zshrc || "$(grep '^ZSH_THEME=' ~/.zshrc | cut -d'"' -f2)" != "steeef" ]]; then
+        echo
         read -p 'Use ohmyzsh steeef theme (Y/n)? ' r
         [[ "$r" =~ ^(Y|y|)$ ]] && USE_RECOMMEND_THEME=1
     fi
@@ -27,6 +28,7 @@ function ask_recommend_theme() {
 function ask_syntax_highlight() {
     [ -v USE_SYNTAX_HIGHLIGHT ] && return
     [ -f ~/.zshrc ] && grep -q '^source .*zsh-syntax-highlighting.zsh' ~/.zshrc && return
+    echo
     read -p 'Install zsh-syntax-highlighting (Y/n)? ' r
     [[ "$r" =~ ^(Y|y|)$ ]] && USE_SYNTAX_HIGHLIGHT=1
 }
@@ -34,6 +36,7 @@ function ask_syntax_highlight() {
 function ask_auto_suggest() {
     [ -v USE_AUTO_SUGGEST ] && return
     [ -f ~/.zshrc ] && grep -q '^source .*zsh-autosuggestions.zsh' ~/.zshrc && return
+    echo
     read -p 'Install zsh-autosuggestions (Y/n)? ' r
     [[ "$r" =~ ^(Y|y|)$ ]] && USE_AUTO_SUGGEST=1
 }
@@ -41,12 +44,14 @@ function ask_auto_suggest() {
 function ask_pacman_pkgfile() {
     [ -v USE_PACMAN_PKGFILE ] && return
     [[ ! -z "$(pacman -Qs zsh)" ]] && grep -q '^source /usr/share/doc/pkgfile/command-not-found.zsh$' ~/.zshrc && return
+    echo
     read -p 'Install `pkgfile` to provide command-not-found advice (Y/n)? ' r
     [[ "$r" =~ ^(Y|y|)$ ]] && USE_PACMAN_PKGFILE=1
 }
 
 function ask_common_alias() {
     [ -v USE_COMMON_ALIAS ] && return
+    echo
     echo "DOC: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/common-aliases"
     read -p 'NOTICE: Use ohmyzsh common-aliases (y/N)? ' r
     [[ "$r" =~ ^(Y|y|)$ ]] && USE_COMMON_ALIAS=1
