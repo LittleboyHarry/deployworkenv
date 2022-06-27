@@ -9,7 +9,13 @@ ZSH_CUSTOM="$ZSH/custom"
 
 # Environment:
 DIR=$(dirname "$0")
-[ -x "$(command -v lsb_release)" ] && DISTRO=$(lsb_release -si)
+
+if [ -x "$(command -v lsb_release)" ]; then
+    DISTRO=$(lsb_release -si)
+elif [ -x /msys2.exe ]; then
+    MSYS2=1
+fi
+
 USING_PACMAN=$(
     [ ! -x "$(command -v pacman)" ]
     echo $?
@@ -140,9 +146,13 @@ if [ "$USE_PACMAN_PKGFILE" = 1 ]; then
     echo "==> Run 'sudo pkgfile -u'"
     if [ -v DISTRO ]; then
         sudo pkgfile -u
-    else
+    elif [ -v MSYS2 ]; then
         pkgfile -u
     fi
+fi
+
+if [ -v MSYS2 ]; then
+    echo 'alias sudo=""' | tee -a ~/.zshrc >/dev/null
 fi
 
 [ "$USE_COMMON_ALIAS" = 1 ] && echo common-aliases >>"$ZPLG_LIST"
