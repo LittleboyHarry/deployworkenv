@@ -21,6 +21,14 @@ USING_PACMAN=$(
     echo $?
 )
 
+function ask_common_aliases() {
+    [ -v USE_COMMON_ALIASES ] && return
+    echo
+    echo "Document: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/common-aliases"
+    read -p 'Use ohmyzsh common-aliases plugin (y/N)? ' r
+    [[ "$r" =~ ^(Y|y|)$ ]] && USE_COMMON_ALIASES=1
+}
+
 function ask_recommend_theme() {
     [ -v USE_RECOMMEND_THEME ] && return
     [ -f ~/.zshrc ] && grep -q '^ZSH_THEME="steeef"$' ~/.zshrc && return
@@ -55,21 +63,13 @@ function ask_pacman_pkgfile() {
     [[ "$r" =~ ^(Y|y|)$ ]] && USE_PACMAN_PKGFILE=1
 }
 
-function ask_common_alias() {
-    [ -v USE_COMMON_ALIAS ] && return
-    echo
-    echo "DOC: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/common-aliases"
-    read -p 'NOTICE: Use ohmyzsh common-aliases (y/N)? ' r
-    [[ "$r" =~ ^(Y|y|)$ ]] && USE_COMMON_ALIAS=1
-}
-
 source "$DIR/../pkginst/_prompt.bash"
+ask_common_aliases
 ask_recommend_theme
 if [ -v DISTRO ]; then
     ask_syntax_highlight
     ask_auto_suggest
 fi
-ask_common_alias
 [ $USING_PACMAN = 1 ] && ask_pacman_pkgfile
 
 [ ! -x "$(command -v zsh)" ] && $USE_PKGINST zsh
@@ -155,7 +155,7 @@ if [ -v MSYS2 ]; then
     echo 'alias sudo=""' | tee -a ~/.zshrc >/dev/null
 fi
 
-[ "$USE_COMMON_ALIAS" = 1 ] && echo common-aliases >>"$ZPLG_LIST"
+[ "$USE_COMMON_ALIASES" = 1 ] && echo common-aliases >>"$ZPLG_LIST"
 
 echo >>~/.zshrc
 
