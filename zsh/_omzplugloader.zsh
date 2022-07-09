@@ -7,9 +7,9 @@ while read -r line; do
 done <~/.zshrc.pluglist
 
 [ -x "$(command -v xclip)" ] || [ -x "$(command -v wl-copy)" ] && plugins+=(copybuffer copyfile copypath)
-[ -x "$(command -v rsync)" ] && plugins+=(rsync)
 
-[ -x "$(command -v docker)" ] && plugins+=(docker)
-[ -x "$(command -v yarn)" ] && plugins+=(yarn)
-[ -x "$(command -v rustc)" ] && plugins+=(rust)
+for it in rsync tmux docker yarn rustc; do
+    [ -x "$(command -v "$it")" ] && plugins+=("$it")
+done
+
 [ -x "$(command -v pip)" ] || [ -x "$(command -v pip3)" ] && plugins+=(pip)
